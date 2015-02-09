@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome :-)</title>
+<script src="myscripts/jquery.js" type="text/javascript"></script>
+<script src="myscripts/jquery-ui.js" type="text/javascript"></script>
+<script type="text/javascript" src="myscripts/d3.min.js"></script>
+</head>
+<body>
+<div id="tps-all-div">
+	<div><input type="button" value="tps-all" id="tps-all"  /></div>
+	<div id="tps-all-graph"></div>
+</div>
+
+<br/>
+<br/>
+
+<div id="tps-date-div">
+	<div><input type="text" id="datepicker" /> <input type="button" value="tps-date" id="tps-date"  /></div>
+	<div id="tps-date-graph"></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+function tpsall()
+{
+	
+		
+	$("#tps-all-graph").html("");
+		alert("Ajax Call is going to happen on ..http://54.187.109.152:8080/Rest1.8/api/tps");
+		
+		$.ajax({
+		 	url: "http://54.187.109.152:8080/Rest1.8/api/tps",
+		 	//url: "http://10.0.41.231:8080/Rest1.8/api/tps",
+		 	type: "GET",
+		 	//dataType: "json",
+		    success: function (data) {
+		    	
+		    	/* for( var i = 0; i < data.length; i++) {
+		        	var row="<tr><td>"+data[i].date+"</td>";
+		        	row+=("<td>"+data[i].tpsCount+"</td>");
+		        	
+		        	$("#tpsCount").append(row);
+		        	} */ 
+		        	
+		        	//---------------------------------------------------------------------//
+		        	
+		    	alert("hurray");
+				console.log(data);
+				
+				var axisy=0;
+								
+				var max=d3.max(data , function(d) {  return d.tpsCount; });
+				console.log(max);    				
+				
+				
+				
+				var width = 500;
+				var height = 300;
+				
+				
+				
+				
+				/*  sclaing of the svg container according to the data  */
+				 var scalableValues = d3.scale.linear()
+									.domain([0, max])
+									.range([0, width]); 
+				
+				
+				 /*scaling of the color according to the data*/
+					
+					var color = d3.scale.linear()
+								.domain([0, max])
+								.range(["red","green"]);
+								
+								
+					var axis = d3.svg.axis()
+								.scale(scalableValues);
+									
+							
+									
+					
+				var canvas = d3.select("#tps-all-graph")
+							.append("svg")
+							.attr("width", width)
+							.attr("height", height)
+							.append("g")
+							.attr("transform","translate(0,50)");
+							
+				
+				
+				
+				var bar = canvas.selectAll("rect")
+							.data(data)
+							.enter()
+							.append("rect")
+							.attr("width" , function(d) { return scalableValues(d.tpsCount); })
+							.attr("height" , 50)
+							.attr("y" , function(d,i) { return i * 55; })
+							.attr("fill",function(d){ return color(d.tpsCount);});
+				
+				
+				
+				canvas.selectAll("text")
+				.data(data)
+				.enter()
+				.append("text")
+				.attr("y",function(d,i) { return i * 55 + 24; } )
+				.text(function(d){ return d.date;  })
+				.attr("fill","black");
+				
+				/* canvas.append("g")
+				.attr("transform","translate(0,280)")
+				.call(axis); */
+				
+				alert("done");
+		        	
+		        	
+		        	
+		    	
+		    				
+		    				
+		    	
+		 },
+		    error : function(err, req) {
+		        alert("Your browser broke!"+err+" "+req);
+		    }
+		    
+		});
+		
+		
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function tpsdate()
+{
+	
+		$("#tps-date-graph").html("");
+		var da = $("#datepicker").datepicker('getDate');
+		var v = $.datepicker.formatDate("dd-mm-yy", da);
+		alert("Ajax Call is going to happen on ..http://54.187.109.152:8080/Rest1.8/api/tps/"+v);
+		
+		$.ajax({
+		 	url: "http://54.187.109.152:8080/Rest1.8/api/tps"+v,
+		 	//url: "http://10.0.41.231:8080/Rest1.8/api/tps/"+v,
+		 	type: "GET",
+		 	//dataType: "json",
+		    success: function (data) {
+		    	
+		    	/* for( var i = 0; i < data.length; i++) {
+		        	var row="<tr><td>"+data[i].date+"</td>";
+		        	row+=("<td>"+data[i].tpsCount+"</td>");
+		        	
+		        	$("#tpsCount").append(row);
+		        	} */ 
+		        	
+		        	//---------------------------------------------------------------------//
+		        	
+		    	alert("hurray");
+				console.log(data);
+				
+				var axisy=0;
+								
+				var max=d3.max(data , function(d) {  return d.tpsCount; });
+				console.log(max);    				
+				
+				
+				
+				var width = 500;
+				var height = 300;
+				
+				
+				
+				
+				/*  sclaing of the svg container according to the data  */
+				 var scalableValues = d3.scale.linear()
+									.domain([0, max])
+									.range([0, width]); 
+				
+				
+				 /*scaling of the color according to the data*/
+					
+					var color = d3.scale.linear()
+								.domain([0, max])
+								.range(["red","green"]);
+								
+								
+					var axis = d3.svg.axis()
+								.scale(scalableValues);
+									
+							
+									
+					
+				var canvas = d3.select("#tps-date-graph")
+							.append("svg")
+							.attr("width", width)
+							.attr("height", height)
+							.append("g")
+							.attr("transform","translate(0,50)");
+							
+				
+				
+				
+				var bar = canvas.selectAll("rect")
+							.data(data)
+							.enter()
+							.append("rect")
+							.attr("width" , function(d) { return scalableValues(d.tpsCount); })
+							.attr("height" , 50)
+							.attr("y" , function(d,i) { return i * 55; })
+							.attr("fill",function(d){ return color(d.tpsCount);});
+				
+				
+				
+				canvas.selectAll("text")
+				.data(data)
+				.enter()
+				.append("text")
+				.attr("y",function(d,i) { return i * 55 + 24; } )
+				.text(function(d){ return d.date;  })
+				.attr("fill","black");
+				
+				/* canvas.append("g")
+				.attr("transform","translate(0,280)")
+				.call(axis); */
+				
+				alert("done");
+		        	
+		        	
+		        	
+		    	
+		    				
+		    				
+		    	
+		 },
+		    error : function(err, req) {
+		        alert("Your browser broke!"+err+" "+req);
+		    }
+		    
+		});
+		
+		
+
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$(function(){
+	
+
+$("#datepicker").datepicker({dateFormat: "dd-mm-yy"});
+
+$("#tps-all").click(tpsall);
+$("#tps-date").click(tpsdate);
+	
+	
+	
+});
+
+
+
+</script>
+
+
+</body>
+</html>
