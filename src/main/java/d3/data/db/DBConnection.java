@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class DBConnection {
     
     //private String url= "jdbc:hive2://10.0.41.99:10000/";
-	private String url= "jdbc:hive2://10.0.41.99:10000/";//"jdbc:hive2://182.71.250.92:10000/";
-	//private String url= "jdbc:hive2://10.0.41.123:10000/";
+	//private String url= "jdbc:hive2://182.71.250.92:10000/";
+	private String url= "jdbc:hive2://10.0.41.123:10000/";
     private String database="default";
     private String user="root";
     private String pass="root321";

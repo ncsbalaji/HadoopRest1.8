@@ -23,22 +23,23 @@
                 <scope>test</scope>
            </dependency> -->
     
-           <dependency>
+           <!-- <dependency>
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-server</artifactId>
                 <version>1.8</version>
-           </dependency>
+           </dependency> -->
            
            <dependency>
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-json</artifactId>
                 <version>1.8</version>
+                <scope>provided</scope>
           </dependency>    
           
-          <dependency>
+          <!-- <dependency>
 				<groupId>org.apache.hive</groupId>
 				<artifactId>hive-jdbc</artifactId>
-				<version>0.13.0</version><!-- <version>0.14.0</version> -->
+				<version>0.13.0</version><version>0.14.0</version>
 			</dependency>
           
           <dependency>
@@ -59,7 +60,7 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-xc</artifactId>
 			<version>1.9.2</version>
-		</dependency>
+		</dependency> -->
 		
      </dependencies>
  
@@ -71,9 +72,11 @@
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.8</version>
 				<configuration>
-				<workDirectory>target/overlay-war-folder</workDirectory> 
+				<!-- <workDirectory>target/overlay-war-folder</workDirectory>  -->
 				<warSourceDirectory>src/main/webapp</warSourceDirectory>
-				<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+				<!-- <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes> -->
+				<warSourceExcludes>WEB-INF/lib/activation-1.1.jar</warSourceExcludes>
+				
                 </configuration>
 			</plugin>
        </plugins>
